@@ -1,0 +1,14 @@
+services:
+  avtocuat:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DATABASE_PATH=/app/data/app.db
+      - DATABASE_URL=file:/app/data/app.db
+      # Optional: set API keys via environment
+      # - ANTHROPIC_API_KEY=sk-ant-xxx
+      # - OPENAI_API_KEY=sk-xxx
+    restart: unless-stopped
