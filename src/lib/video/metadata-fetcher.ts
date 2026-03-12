@@ -14,6 +14,8 @@ export async function fetchVideoMetadata(
       [
         "--js-runtimes",
         "node",
+        "--impersonate",
+        "chrome",
         "--dump-json",
         "--no-download",
         parsed.originalUrl,

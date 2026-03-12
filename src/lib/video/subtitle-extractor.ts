@@ -19,6 +19,8 @@ export async function extractSubtitles(
     await execFileAsync("yt-dlp", [
       "--js-runtimes",
       "node",
+      "--impersonate",
+      "chrome",
       "--write-auto-subs",
       "--write-subs",
       "--sub-lang",

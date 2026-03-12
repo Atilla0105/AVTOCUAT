@@ -21,6 +21,8 @@ export async function extractFrames(
       [
         "--js-runtimes",
         "node",
+        "--impersonate",
+        "chrome",
         "-f",
         "worst[ext=mp4][filesize<200M]/worst[ext=mp4]/worst",
         "--max-filesize",
