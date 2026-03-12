@@ -52,8 +52,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Copy template database (will be used to seed if no db exists)
-COPY --from=builder /app/data/template.db /app/data/template.db
+# Copy template database to a location OUTSIDE the volume mount path
+COPY --from=builder /app/data/template.db /app/template.db
 
 # Create data directory for SQLite
 RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data
@@ -64,7 +64,7 @@ COPY --chown=nextjs:nodejs <<'EOF' /app/start.sh
 # Initialize database from template if it doesn't exist
 if [ ! -f /app/data/app.db ]; then
   echo "Initializing database..."
-  cp /app/data/template.db /app/data/app.db
+  cp /app/template.db /app/data/app.db
   echo "Database initialized."
 fi
 exec node server.js
