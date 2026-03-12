@@ -57,7 +57,11 @@ export default function AnalyzerPage() {
 
       const data = await res.json();
       setAnalysis(data.analysis);
-      toast.success("视频分析完成！");
+      if (!data.hasTranscript && data.frameCount > 0) {
+        toast.success(`视频分析完成！（基于${data.frameCount}帧画面分析，字幕不可用）`);
+      } else {
+        toast.success(`视频分析完成！（${data.frameCount}帧 + ${data.hasTranscript ? "字幕" : "无字幕"}）`);
+      }
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "分析失败，请重试"
