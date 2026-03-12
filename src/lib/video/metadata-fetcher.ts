@@ -12,11 +12,13 @@ export async function fetchVideoMetadata(
     const { stdout } = await execFileAsync(
       "yt-dlp",
       [
+        "--js-runtimes",
+        "node",
         "--dump-json",
         "--no-download",
         parsed.originalUrl,
       ],
-      { timeout: 15000 }
+      { timeout: 30000 }
     );
 
     const info = JSON.parse(stdout);

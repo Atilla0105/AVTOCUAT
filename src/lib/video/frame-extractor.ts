@@ -19,15 +19,17 @@ export async function extractFrames(
     await execFileAsync(
       "yt-dlp",
       [
+        "--js-runtimes",
+        "node",
         "-f",
-        "worst[ext=mp4]/worst",
+        "worst[ext=mp4][filesize<200M]/worst[ext=mp4]/worst",
         "--max-filesize",
-        "100M",
+        "200M",
         "-o",
         videoPath,
         videoUrl,
       ],
-      { timeout: 120000 }
+      { timeout: 180000 }
     );
 
     // Extract frames using ffmpeg

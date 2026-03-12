@@ -17,6 +17,8 @@ export async function extractSubtitles(
     const outputTemplate = join(tempDir, "sub");
 
     await execFileAsync("yt-dlp", [
+      "--js-runtimes",
+      "node",
       "--write-auto-subs",
       "--write-subs",
       "--sub-lang",
@@ -27,7 +29,7 @@ export async function extractSubtitles(
       "-o",
       outputTemplate,
       videoUrl,
-    ], { timeout: 30000 });
+    ], { timeout: 60000 });
 
     // Find and read the subtitle file
     const { stdout: files } = await execFileAsync("ls", [tempDir]);
